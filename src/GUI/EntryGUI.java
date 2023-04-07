@@ -163,7 +163,7 @@ public class EntryGUI extends JFrame {
 
 		JButton btn = new JButton("Ενημέρωσε το βιβλίο εισόδου - εξόδου με την νέα εγγραφή");
 
-		AdditionBtnListener additionBtnList = new AdditionBtnListener(c1, c2, c3, c4);
+		AdditionBtnListener additionBtnList = new AdditionBtnListener(c1, c2, c3, c4, this);
 		btn.addActionListener(additionBtnList);
 		tempPanel.add(btn);
 		centralPanel.add(tempPanel);
