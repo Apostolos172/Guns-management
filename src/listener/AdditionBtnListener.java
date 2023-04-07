@@ -39,6 +39,7 @@ public class AdditionBtnListener implements ActionListener {
 		switch (type) {
 		case "Έξοδος":
 			String path = "C:\\databases\\guns.db";
+			path = "guns.db";
 			try {
 				ConnectionWithDatabase conn = new ConnectionWithDatabase("jdbc:sqlite:" + path);
 				

@@ -1,5 +1,6 @@
 package main;
 
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import com.formdev.flatlaf.FlatDarkLaf;
 import GUI.Main_GUI;
@@ -19,6 +20,9 @@ public class App {
 		
 		String path = "";
 		path = "C:\\databases\\guns.db";
+		// System.out.println(Paths.get(".").toAbsolutePath().normalize().toString());
+		// path = "C:\\Users\\apost\\eclipse-workspace\\GunSystem\\guns.db";
+		path = "guns.db";
 		ConnectionWithDatabase conn = new ConnectionWithDatabase("jdbc:sqlite:" + path);
 		conn.getSoldiersSurnames();
 		conn.CloseConnection();

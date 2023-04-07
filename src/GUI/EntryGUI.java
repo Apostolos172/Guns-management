@@ -28,6 +28,7 @@ public class EntryGUI extends JFrame {
 	public EntryGUI() throws ClassNotFoundException, SQLException {
 		super("Νέα καταχώριση");
 		this.path = "C:\\databases\\guns.db";
+		this.path = "guns.db";
 		this.conn = new ConnectionWithDatabase("jdbc:sqlite:" + path);
 
 		makeEntryPanel();
