@@ -70,7 +70,68 @@ public class ConnectionWithDatabase {
 		insertARow("MOVEMENT", fields, values);
 	}
 	
-	// useful 
+	public String[][] getInputMovements() throws SQLException {
+		// columns of result set as retrieved by the following query
+		String[] fieldsArr = {"Type", "Number", "Quartermaster_Surname", "Rationale", "Date"};
+		ArrayList<String> fields = new ArrayList<>(Arrays.asList(fieldsArr));
+		
+		Statement stmt = this.sqliteConnection.createStatement();
+		String query = "SELECT Type, Number, Quartermaster_Surname, Rationale, Date\n"
+				+ "FROM ( \n"
+				+ "    SELECT Id, Gun, Quartermaster, Rationale, Date\n"
+				+ "    FROM MOVEMENT\n"
+				+ "    WHERE Type = \"input\"\n"
+				+ ") as movements JOIN (\n"
+				+ "    SELECT Id, Surname AS Quartermaster_Surname\n"
+				+ "    FROM SOLDIER\n"
+				+ ") as soldiers\n"
+				+ "ON movements.Quartermaster = soldiers.Id\n"
+				+ "JOIN (\n"
+				+ "    SELECT Id, Type, Number\n"
+				+ "    FROM GUN\n"
+				+ ") as guns\n"
+				+ "ON movements.Gun = guns.Id\n"
+				+ "ORDER BY movements.Id DESC;";
+		
+		// add data of each row as arraylist of the arraylist of all data
+		ResultSet rs = stmt.executeQuery(query);
+		ArrayList<ArrayList<String>> dataList = new ArrayList<>(); 
+		ArrayList<String> rowArrayList = null;
+		System.out.println();
+		while(rs.next()) {
+			rowArrayList = new ArrayList<>();
+			for (String column : fields) {
+				rowArrayList.add(rs.getString(column));
+			}
+			//System.out.println(rowArrayList);
+			dataList.add(rowArrayList);
+		}
+				
+		// System.out.println(dataList.size());
+		// run second time the query and then αφού έχεις ορίσει το κατάλληλο μέγεθος τότε
+		// πήγαινε και συμπλήρωσε τον πίνακα για να μην έχει null και να είσαι ακριβής στο μέγεθος
+		
+		rs = stmt.executeQuery(query);
+		// String[][] data = new String[8][5];
+		String[][] data = new String[dataList.size()][fields.size()];
+		int counter = 0;
+		while(rs.next()) {
+			for (int i = 0; i < fields.size(); i++) {
+				data[counter][i] = rs.getString(fields.get(i));
+			}
+			counter++;
+		}
+		
+//		for (int i = 0; i < data.length; i++) {
+//			for (int j = 0; j < data[i].length; j++) {
+//				System.out.println(data[i][j]);
+//			}
+//		}
+		// System.out.println(dataList);
+
+		return data;
+	}
+	
 	public ArrayList<String> getThisColumn(String columnName, String table) throws SQLException {
 		ArrayList<String> column = new ArrayList<>();
 

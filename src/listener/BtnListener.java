@@ -46,7 +46,11 @@ public class BtnListener implements ActionListener {
 			}
 			break;
 		case "return":
-			new Main_GUI();
+			try {
+				new Main_GUI();
+			} catch (ClassNotFoundException | SQLException e2) {
+				e2.printStackTrace();
+			}
 			break;
 		default:
 			try {

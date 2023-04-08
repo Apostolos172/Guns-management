@@ -97,7 +97,11 @@ public class AdditionBtnListener implements ActionListener {
 			break;
 		}
 		this.entryGui.dispose();
-		new Main_GUI();
+		try {
+			new Main_GUI();
+		} catch (ClassNotFoundException | SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

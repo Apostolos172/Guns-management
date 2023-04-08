@@ -2,6 +2,9 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import listener.BtnListener;
+import main.ConnectionWithDatabase;
 import main.Util;
 
 public class Main_GUI extends JFrame {
@@ -17,16 +21,25 @@ public class Main_GUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel, southPanel;
+	private String path;
+	private ConnectionWithDatabase conn;
 	private Player play = new Player();
 
-	public Main_GUI(String title) {
+
+	public Main_GUI(String title) throws ClassNotFoundException, SQLException {
 		super(title);
+		this.path = "guns.db";
+		this.conn = new ConnectionWithDatabase("jdbc:sqlite:" + path);
 		makeFrame();
+		this.conn.CloseConnection();
 	}
 
-	public Main_GUI() {
+	public Main_GUI() throws ClassNotFoundException, SQLException {
 		super("Διαχειριστής όπλων");
+		this.path = "guns.db";
+		this.conn = new ConnectionWithDatabase("jdbc:sqlite:" + path);
 		makeFrame();
+		this.conn.CloseConnection();
 	}
 
 	private void makeFrame() {
@@ -88,33 +101,41 @@ public class Main_GUI extends JFrame {
 		GUI.setPaddingAtJLabel(l);
 		inputGuns.add(l, BorderLayout.NORTH);
 
-		String data[][] = { { "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
-				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() }, };
+		String[][] dataList = null;
+		try {
+			dataList = conn.getInputMovements();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+//		String data[][] = { { "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() },
+//				{ "G3A3", "101", "Βαδραχάνης", "ΤΕΛΟΣ", Util.getTime() }, };
 		String column[] = { "Τύπος", "No", "Θ", "Αιτιολογία", "Ώρα" };
-		JTableCustom jt = new JTableCustom(data, column);
+		JTableCustom jt = new JTableCustom(dataList, column);
+		
+		// JTable j = new JTable(dataList, column);
 		JScrollPane sp = new JScrollPane(jt);
 		sp.setOpaque(false);
 		sp.getViewport().setOpaque(false);
