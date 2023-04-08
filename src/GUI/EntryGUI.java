@@ -40,7 +40,7 @@ public class EntryGUI extends JFrame {
 	}
 
 	private void makeEntryPanel() throws ClassNotFoundException, SQLException {
-		mainPanel = new JPanel(new BorderLayout());
+		mainPanel = new CustomJPanel(new BorderLayout(), "sky");
 
 		makeCenterPanel();
 

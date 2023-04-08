@@ -38,11 +38,14 @@ public class Main_GUI extends JFrame {
 		GUI.setPadding(tempPanel, "DEFAULT");
 		mainPanel.add(tempPanel, BorderLayout.SOUTH);
 
-		this.add(mainPanel);
+		//this.add(mainPanel);
+		this.setContentPane(mainPanel);
 
+		pack();
 		GUI.setSizeOfTheWindow(this);
 		this.setSize(1200, 650);
 		this.setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	private void makeSouthPanel() {
@@ -60,7 +63,7 @@ public class Main_GUI extends JFrame {
 		makeInputGunsTable();
 		makeOutputGunsTable();
 
-		JPanel entryButtonPanel = new JPanel();
+		JPanel entryButtonPanel = new CustomJPanel("default");
 		JButton goToSaveEntry = new JButton("Νέα καταχώριση");
 
 		BtnListener btnlistener = new BtnListener(this);
@@ -109,6 +112,8 @@ public class Main_GUI extends JFrame {
 		String column[] = { "Τύπος", "No", "Θ", "Αιτιολογία", "Ώρα" };
 		JTableCustom jt = new JTableCustom(data, column);
 		JScrollPane sp = new JScrollPane(jt);
+		sp.setOpaque(false);
+		sp.getViewport().setOpaque(false);
 		inputGuns.add(sp, BorderLayout.CENTER);
 		mainPanel.add(inputGuns, BorderLayout.LINE_START);
 	}
@@ -149,6 +154,8 @@ public class Main_GUI extends JFrame {
 		String column[] = { "Τύπος", "No", "Οπλίτης", "Αιτιολογία", "Ώρα" };
 		JTableCustom jt = new JTableCustom(data, column);
 		JScrollPane sp = new JScrollPane(jt);
+		sp.setOpaque(false);
+		sp.getViewport().setOpaque(false);
 		outputGuns.add(sp, BorderLayout.CENTER);
 		mainPanel.add(outputGuns, BorderLayout.LINE_END);
 	}
