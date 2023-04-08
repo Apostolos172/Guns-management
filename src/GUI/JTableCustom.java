@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class JTableCustom extends JTable {
 
@@ -18,6 +19,8 @@ public class JTableCustom extends JTable {
 		this.getColumnModel().getColumn(2).setPreferredWidth(115);
 		this.getColumnModel().getColumn(3).setPreferredWidth(100);
 		this.getColumnModel().getColumn(4).setPreferredWidth(100);
+		this.setOpaque(false);
+		((DefaultTableCellRenderer) this.getDefaultRenderer(Object.class)).setOpaque(false);
 	}
 
 	/*
