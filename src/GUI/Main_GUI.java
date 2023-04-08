@@ -17,6 +17,7 @@ public class Main_GUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel mainPanel, southPanel;
+	private Player play = new Player();
 
 	public Main_GUI(String title) {
 		super(title);
@@ -30,6 +31,9 @@ public class Main_GUI extends JFrame {
 
 	private void makeFrame() {
 
+		String filePath = "media/ThePianoGuys-AThousandYears.wav";
+		play.playMusic(filePath);
+		
 		mainPanel = new JPanel(new BorderLayout());
 		makeNorthPanel();
 		makeSouthPanel();
@@ -66,7 +70,7 @@ public class Main_GUI extends JFrame {
 		JPanel entryButtonPanel = new CustomJPanel("default");
 		JButton goToSaveEntry = new JButton("Νέα καταχώριση");
 
-		BtnListener btnlistener = new BtnListener(this);
+		BtnListener btnlistener = new BtnListener(this, this.play);
 		goToSaveEntry.addActionListener(btnlistener);
 
 		entryButtonPanel.add(goToSaveEntry);
