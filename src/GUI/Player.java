@@ -26,7 +26,11 @@ public class Player {
 	}
 
 	public void stop() {
-		this.clip.stop();
-		this.clip.close();
+		try {
+			this.clip.stop();
+			this.clip.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
