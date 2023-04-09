@@ -21,7 +21,7 @@ The system comes to replace the armature input-output book which is used by the 
 
 ### Pre-Built Instructions
 
-1. Download the latest version archive (.zip) from the releases tab.
+1. Download the latest version archive (.zip) from the [releases tab](https://github.com/Apostolos172/Guns-management/releases).
 2. Extract the folder from the zip.
 3. Make sure the .jar executable, media folder and db file are in the same folder.
 4. Run the .jar file.
