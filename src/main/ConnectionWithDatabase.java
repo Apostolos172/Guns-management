@@ -70,6 +70,68 @@ public class ConnectionWithDatabase {
 		insertARow("MOVEMENT", fields, values);
 	}
 	
+	public String[][] getOutputMovements() throws SQLException {
+		// columns of result set as retrieved by the following query
+		String[] fieldsArr = {"Type", "Number", "Soldier_Surname", "Rationale", "Date"};
+		ArrayList<String> fields = new ArrayList<>(Arrays.asList(fieldsArr));
+		
+		Statement stmt = this.sqliteConnection.createStatement();
+		String query = "SELECT Type, Number, Soldier_Surname, Rationale, Date\n"
+				+ "FROM ( \n"
+				+ "    SELECT Id, Gun, Rationale, Date\n"
+				+ "    FROM MOVEMENT\n"
+				+ "    WHERE Type = \"output\"\n"
+				+ ") as movements \n"
+				+ "JOIN (\n"
+				+ "    SELECT Type, Number, Gun, Surname AS Soldier_Surname\n"
+				+ "    FROM SOLDIER \n"
+				+ "    JOIN GUN\n"
+				+ "    ON SOLDIER.Gun = GUN.Id\n"
+				+ ") as soldiers\n"
+				+ "ON movements.Gun = soldiers.Gun\n"
+				+ "ORDER BY movements.Id DESC";
+		
+		// add data of each row as arraylist of the arraylist of all data
+		ResultSet rs = stmt.executeQuery(query);
+		ArrayList<ArrayList<String>> dataList = new ArrayList<>(); 
+		ArrayList<String> rowArrayList = null;
+		// System.out.println();
+		while(rs.next()) {
+			rowArrayList = new ArrayList<>();
+			for (String column : fields) {
+				rowArrayList.add(rs.getString(column));
+			}
+			//System.out.println(rowArrayList);
+			dataList.add(rowArrayList);
+		}
+				
+		// System.out.println(dataList.size());
+		// run second time the query and then αφού έχεις ορίσει το κατάλληλο μέγεθος τότε
+		// πήγαινε και συμπλήρωσε τον πίνακα για να μην έχει null και να είσαι ακριβής στο μέγεθος
+		
+		rs = stmt.executeQuery(query);
+		String[][] data = new String[dataList.size()][fields.size()];
+		int counter = 0;
+		while(rs.next()) {
+			for (int i = 0; i < fields.size(); i++) {
+				data[counter][i] = rs.getString(fields.get(i));
+			}
+			counter++;
+		}
+		
+//		for (int i = 0; i < data.length; i++) {
+//			for (int j = 0; j < data[i].length; j++) {
+//				System.out.println(data[i][j]);
+//			}
+//		}
+		// System.out.println(dataList);
+
+		stmt.close();
+		rs.close();
+		return data;
+
+	}
+	
 	public String[][] getInputMovements() throws SQLException {
 		// columns of result set as retrieved by the following query
 		String[] fieldsArr = {"Type", "Number", "Quartermaster_Surname", "Rationale", "Date"};
@@ -97,7 +159,6 @@ public class ConnectionWithDatabase {
 		ResultSet rs = stmt.executeQuery(query);
 		ArrayList<ArrayList<String>> dataList = new ArrayList<>(); 
 		ArrayList<String> rowArrayList = null;
-		System.out.println();
 		while(rs.next()) {
 			rowArrayList = new ArrayList<>();
 			for (String column : fields) {
@@ -129,6 +190,8 @@ public class ConnectionWithDatabase {
 //		}
 		// System.out.println(dataList);
 
+		stmt.close();
+		rs.close();
 		return data;
 	}
 	
@@ -256,4 +319,5 @@ public class ConnectionWithDatabase {
 
 		return value;
 	}
+
 }

@@ -3,7 +3,6 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +12,6 @@ import javax.swing.JScrollPane;
 
 import listener.BtnListener;
 import main.ConnectionWithDatabase;
-import main.Util;
 
 public class Main_GUI extends JFrame {
 	/**
@@ -151,31 +149,37 @@ public class Main_GUI extends JFrame {
 		GUI.setPaddingAtJLabel(l);
 		outputGuns.add(l, BorderLayout.NORTH);
 
-		String data[][] = { { "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
-				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() }, };
+		String data[][] = null;
+		try {
+			data = conn.getOutputMovements();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+//		String data[][] = { { "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() },
+//				{ "G3A3", "101", "Παπαδημητρίου", "ΚΠ", Util.getTime() }, };
 		String column[] = { "Τύπος", "No", "Οπλίτης", "Αιτιολογία", "Ώρα" };
 		JTableCustom jt = new JTableCustom(data, column);
 		JScrollPane sp = new JScrollPane(jt);
