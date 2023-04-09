@@ -60,6 +60,43 @@ public class ConnectionWithDatabase {
 		rs.close();
 		return value;
 	}
+	
+	public String getGunsNumber() throws SQLException {
+		Statement stmt = sqliteConnection.createStatement();
+		
+		String query = "SELECT count(*) AS guns\n"
+				+ "FROM GUN";
+		
+		ResultSet rs = stmt.executeQuery(query);
+		Integer value = rs.getInt("guns");
+		stmt.close();
+		rs.close();
+		return value.toString();
+	}
+	
+	public String getGunsMissingNumber() throws SQLException {
+		Statement stmt = sqliteConnection.createStatement();
+		
+		String query = "SELECT count(*) AS inputGuns\n"
+				+ "FROM MOVEMENT\n"
+				+ "WHERE Type=\"input\"";
+		
+		ResultSet rs = stmt.executeQuery(query);
+		Integer value1 = rs.getInt("inputGuns");
+		
+		query = "SELECT count(*) AS outputGuns\n"
+				+ "FROM MOVEMENT\n"
+				+ "WHERE Type=\"output\"";
+		
+		rs = stmt.executeQuery(query);
+		Integer value2 = rs.getInt("outputGuns");
+		
+		Integer value = Math.abs(value1 - value2);
+		
+		stmt.close();
+		rs.close();
+		return value.toString();
+	}
 
 	public void insertAMovement(String type, String rationale, String date, Integer gun, Integer quartermaster) throws SQLException {
 		String[] fieldsArr = {"Type", "Gun", "Quartermaster", "Rationale", "Date"};
