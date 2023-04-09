@@ -33,5 +33,9 @@ The system comes to replace the armature input-output book which is used by the 
 * [JDBC driver (sqlite-jdbc-3.21.0)](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc/3.21.0) - The driver in order to achieve connection between the application and the SQLite compatible database file which contains information about the soldiers, guns and the movements of the guns.
 * [Commons Lang 3.0](http://www.java2s.com/Code/Jar/c/Downloadcommonslang330jar.htm)
 
+## Database
+You can see the schema of the system's database below
+![database](https://github.com/Apostolos172/Guns-management/blob/master/DB/guns%20management%20db.png?raw=true)
+
 ## About the data of the app
 * All the data of the app are not real but they are used for exemplary purposes.
