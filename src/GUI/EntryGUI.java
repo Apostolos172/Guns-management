@@ -28,6 +28,7 @@ public class EntryGUI extends JFrame {
 	public EntryGUI() throws ClassNotFoundException, SQLException {
 		super("Νέα καταχώριση");
 		this.path = "C:\\databases\\guns.db";
+		this.path = "guns.db";
 		this.conn = new ConnectionWithDatabase("jdbc:sqlite:" + path);
 
 		makeEntryPanel();
@@ -39,7 +40,7 @@ public class EntryGUI extends JFrame {
 	}
 
 	private void makeEntryPanel() throws ClassNotFoundException, SQLException {
-		mainPanel = new JPanel(new BorderLayout());
+		mainPanel = new CustomJPanel(new BorderLayout(), "sky");
 
 		makeCenterPanel();
 
@@ -162,7 +163,7 @@ public class EntryGUI extends JFrame {
 
 		JButton btn = new JButton("Ενημέρωσε το βιβλίο εισόδου - εξόδου με την νέα εγγραφή");
 
-		AdditionBtnListener additionBtnList = new AdditionBtnListener(c1, c2, c3, c4);
+		AdditionBtnListener additionBtnList = new AdditionBtnListener(c1, c2, c3, c4, this);
 		btn.addActionListener(additionBtnList);
 		tempPanel.add(btn);
 		centralPanel.add(tempPanel);
