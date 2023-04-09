@@ -35,6 +35,7 @@ The system comes to replace the armature input-output book which is used by the 
 
 ## Database
 You can see the schema of the system's database below
+
 ![database](https://github.com/Apostolos172/Guns-management/blob/master/DB/guns%20management%20db.png?raw=true)
 
 ## About the data of the app
