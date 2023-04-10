@@ -74,6 +74,24 @@ public class ConnectionWithDatabase {
 		return value.toString();
 	}
 	
+	public boolean isGunOut(Integer gunId) throws SQLException {		
+		Statement stmt = this.sqliteConnection.createStatement();
+		
+		String query = "SELECT count(*) movements_of_the_gun\r\n"
+				+ "FROM MOVEMENT\r\n"
+				+ "WHERE Gun = " + gunId;
+		
+		ResultSet rs = stmt.executeQuery(query);
+		Integer movements_of_the_gun = rs.getInt("movements_of_the_gun");
+		// gun out where the movements are odd - περιττός
+		boolean isGunOut = (movements_of_the_gun % 2 == 0) ? false : true;
+        
+		rs.close();
+		stmt.close();
+		
+		return isGunOut;
+	}
+	
 	public String getGunsMissingNumber() throws SQLException {
 		Statement stmt = sqliteConnection.createStatement();
 		
